@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using System.Transactions;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public Vector3 rise;
+    private float jump = 100;
     private Rigidbody rb;
     private int count;
     private float movementX;
@@ -27,19 +30,25 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        rise = new Vector3(movementX, 10.0f, movementY);
         rb.AddForce(movement * speed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        if(other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
             count += 1;
             SetCountText();
         }
+
+        if(other.gameObject.CompareTag("JumpPad"))
+        {
+            Debug.Log("Jump triggered");
+            rb.AddForce(jump * rise);
+        }
         
-        other.gameObject.SetActive(false);
     }
 
     void OnMove(InputValue movementValue)
@@ -54,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
 
-        if(count >= 8)
+        if(count >= 16)
         {
             winTextObject.SetActive(true);
         }
