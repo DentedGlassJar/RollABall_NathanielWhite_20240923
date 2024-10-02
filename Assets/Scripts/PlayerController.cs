@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump triggered");
             rb.AddForce(jump * rise);
         }
+
+        if (other.gameObject.CompareTag("ResetPlane"))
+        {
+            transform.position = new Vector3(0, 0, 0);
+        }
         
     }
 
