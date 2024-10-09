@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Transactions;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public Vector3 rise;
-    private float jump = 100;
+    public LayerMask groundLayer;
+    private float raycastDistance = 0.6f;
+    private float jump = 50;
     private Rigidbody rb;
     private int count;
     private float movementX;
     private float movementY;
+    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +31,35 @@ public class PlayerController : MonoBehaviour
         winTextObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        //This is a method of checking to see if the player is touching the ground.
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
+        {
+            isGrounded = true;
+        }    
+        else
+        {
+            isGrounded = false;
+        }
+
+        // This makes it so the player jumps
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Debug.Log("Jump triggered");
+            rb.AddForce(jump * rise);
+        }
+
+
+    }
+
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
         rise = new Vector3(movementX, 10.0f, movementY);
         rb.AddForce(movement * speed);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,12 +69,6 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             count += 1;
             SetCountText();
-        }
-
-        if(other.gameObject.CompareTag("JumpPad"))
-        {
-            Debug.Log("Jump triggered");
-            rb.AddForce(jump * rise);
         }
 
         if (other.gameObject.CompareTag("ResetPlane"))
