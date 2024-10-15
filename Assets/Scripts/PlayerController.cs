@@ -6,14 +6,18 @@ using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Transactions;
 using UnityEngine.Rendering;
+using System.Runtime.CompilerServices;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public TextMeshProUGUI timerText;
     public Vector3 rise;
     public LayerMask groundLayer;
+
+
     private float raycastDistance = 0.6f;
     private float jump = 50;
     private Rigidbody rb;
@@ -21,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
     private bool isGrounded;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -50,8 +55,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump triggered");
             rb.AddForce(jump * rise);
         }
-
-
     }
 
     private void FixedUpdate()
