@@ -7,21 +7,23 @@ using Unity.Collections.LowLevel.Unsafe;
 using System.Transactions;
 using UnityEngine.Rendering;
 using System.Runtime.CompilerServices;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
-    public GameObject winTextObject;
     public TextMeshProUGUI timerText;
+    public GameObject winTextObject;
     public Vector3 rise;
     public LayerMask groundLayer;
-
+    public int count;
+    bool stopwatchActive = true;
+    float currentTime;
 
     private float raycastDistance = 0.6f;
     private float jump = 50;
     private Rigidbody rb;
-    private int count;
     private float movementX;
     private float movementY;
     private bool isGrounded;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        currentTime = 0;
         SetCountText();
         winTextObject.SetActive(false);
     }
@@ -55,6 +58,13 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump triggered");
             rb.AddForce(jump * rise);
         }
+
+        if (stopwatchActive == true)
+        {
+            currentTime = currentTime + Time.deltaTime;
+        }
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        timerText.text = time.ToString(@"mm\ ss\ fff");
     }
 
     private void FixedUpdate()
@@ -78,7 +88,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(0, 0, 0);
         }
-        
+
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            if (count >= 8)
+            {
+                stopwatchActive = false;
+            }
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -93,9 +110,10 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
 
-        if(count >= 16)
+        if(count >= 8)
         {
             winTextObject.SetActive(true);
         }
     }
+
 }
