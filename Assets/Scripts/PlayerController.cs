@@ -11,6 +11,7 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public int pickUpGoal;
     public float speed = 0;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI timerText;
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
 
-        if(count >= 8)
+        if(count >= pickUpGoal)
         {
             winTextObject.SetActive(true);
         }
