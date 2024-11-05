@@ -11,14 +11,14 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public int pickUpGoal;
+    public int pickUpMax;
     public float speed = 0;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI timerText;
     public GameObject winTextObject;
     public Vector3 rise;
     public LayerMask groundLayer;
-    public int count;
+    
     bool stopwatchActive = true;
     float currentTime;
 
@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
     private bool isGrounded;
-    
+    private int count;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PickUp"))
+        if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
             count += 1;
@@ -90,12 +91,10 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, 0, 0);
         }
 
-        if (other.gameObject.CompareTag("PickUp"))
+        if (other.gameObject.CompareTag("Goal"))
         {
-            if (count >= 8)
-            {
-                stopwatchActive = false;
-            }
+            stopwatchActive = false;
+            winTextObject.SetActive(true);
         }
     }
 
@@ -110,11 +109,6 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-
-        if(count >= pickUpGoal)
-        {
-            winTextObject.SetActive(true);
-        }
     }
 
 }
