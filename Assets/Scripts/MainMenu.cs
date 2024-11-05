@@ -19,4 +19,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("ControlsMenu");
     }
+
+    public void levelSelectOption()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
 }
