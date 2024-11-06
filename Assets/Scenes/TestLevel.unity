@@ -2956,10 +2956,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 908050555}
   turn: {x: 0, y: 0}
-  xMax: 30
-  yMax: 25
-  xMin: -30
-  yMin: -30
+  objectCamera: {x: 0, y: 0, z: 0}
+  newLeftPos: {x: 0, y: 0, z: 0}
+  newRightPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1507004385
 MonoBehaviour:
   m_ObjectHideFlags: 0
