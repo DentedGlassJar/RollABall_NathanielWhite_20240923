@@ -10,7 +10,7 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void playOption()
+    public void PlayOption()
     {
         SceneManager.LoadScene("Level1");       
     }

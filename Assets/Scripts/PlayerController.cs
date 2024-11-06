@@ -8,6 +8,7 @@ using System.Transactions;
 using UnityEngine.Rendering;
 using System.Runtime.CompilerServices;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -110,5 +111,4 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
     }
-
 }

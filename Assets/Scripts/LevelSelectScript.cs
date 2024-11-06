@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelSelectMenu : MonoBehaviour
+public class LevelSelectScript : MonoBehaviour
 {
-    public void Level1Option()
+    public void Level1Button()
     {
         SceneManager.LoadScene("Level1");
     }
 
-    public void LevelTestOption()
+    public void LevelTestButton()
     {
         SceneManager.LoadScene("TestLevel");
     }
 
-    public void GoBackOption()
+    public void GoBackButton()
     {
         SceneManager.LoadScene("MainMenu");
     }
