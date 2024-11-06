@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using System.Runtime.CompilerServices;
 using System;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public class PlayerController : MonoBehaviour
 {
@@ -68,6 +69,15 @@ public class PlayerController : MonoBehaviour
         }
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
         //timerText.text = time.ToString(@"mm\ ss\ fff");
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if(isGrounded == true)
+            {
+                Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+                rb.velocity = Vector3.zero;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -111,4 +121,6 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count.ToString();
     }
+
+    //I want to make it so if the player holds down the shift button, that they stop in position so they can plan more with their movement.
 }
