@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour
         float minutes = Mathf.FloorToInt(stopWatch / 60);
         float seconds = Mathf.FloorToInt(stopWatch % 60);
 
+        // This makes it so the zero disappears whenever the seconds reach 10 or higher
         if(seconds >= 10)
         {
             timerText.text = "Timer: " + minutes + ":" + seconds;
