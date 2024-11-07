@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using System.Transactions;
-using UnityEngine.Rendering;
-using System.Runtime.CompilerServices;
 using System;
 using UnityEngine.SceneManagement;
-using System.Net;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,9 +16,8 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     public Vector3 rise;
     public LayerMask groundLayer;
-    
-    bool stopwatchActive = true;
-    float currentTime;
+    public float stopWatch;
+    public bool isTimeRunning;
 
     private float raycastDistance = 0.6f;
     private float jump = 50;
@@ -38,9 +33,11 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
-        currentTime = 0;
         SetCountText();
         winTextObject.SetActive(false);
+        isTimeRunning = true;
+        stopWatch = 0;
+        SetTimerText();
     }
 
     private void Update()
@@ -63,16 +60,20 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(jump * rise);
         }
 
-        if (stopwatchActive == true)
-        {
-            currentTime = currentTime + Time.deltaTime;
-        }
-        TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        //timerText.text = time.ToString(@"mm\ ss\ fff");
+        
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if(isGrounded == true)
+            {
+                Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+                rb.velocity = Vector3.zero;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.RightShift))
+        {
+            if (isGrounded == true)
             {
                 Vector3 movement = new Vector3(movementX, 0.0f, movementY);
                 rb.velocity = Vector3.zero;
@@ -86,6 +87,11 @@ public class PlayerController : MonoBehaviour
         rise = new Vector3(movementX, 10.0f, movementY);
         rb.AddForce(movement * speed);
 
+        if(isTimeRunning == true)
+        {
+            stopWatch += Time.deltaTime;
+            SetTimerText();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,8 +109,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("Goal"))
-        {
-            stopwatchActive = false;
+        { 
+            isTimeRunning = false;
             winTextObject.SetActive(true);
         }
     }
@@ -122,5 +128,18 @@ public class PlayerController : MonoBehaviour
         countText.text = "Count: " + count.ToString();
     }
 
-    //I want to make it so if the player holds down the shift button, that they stop in position so they can plan more with their movement.
+    void SetTimerText()
+    {
+        float minutes = Mathf.FloorToInt(stopWatch / 60);
+        float seconds = Mathf.FloorToInt(stopWatch % 60);
+
+        if(seconds >= 10)
+        {
+            timerText.text = "Timer: " + minutes + ":" + seconds;
+        }
+        else
+        {
+            timerText.text = "Timer: " + minutes + ":0" + seconds;
+        }
+    }
 }
