@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     public Vector3 rise;
     public LayerMask groundLayer;
-    public float stopWatch;
     public bool isTimeRunning;
 
     private float raycastDistance = 0.6f;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private bool isGrounded;
     private int count;
+    float stopWatch;
 
 
     // Start is called before the first frame update
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
         {
             if(isGrounded == true)
             {
-                Vector3 movement = new Vector3(movementX, 0.0f, movementY);
                 rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
             }
         }
 
@@ -75,17 +75,17 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded == true)
             {
-                Vector3 movement = new Vector3(movementX, 0.0f, movementY);
                 rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rise = new Vector3(movementX, 10.0f, movementY);
-        rb.AddForce(movement * speed);
+            Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+            rise = new Vector3(movementX, 10.0f, movementY);
+            rb.AddForce(movement * speed);
 
         if(isTimeRunning == true)
         {
@@ -105,13 +105,17 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ResetPlane"))
         {
-            transform.position = new Vector3(0, 0, 0);
+            transform.position = new Vector3(0, 0.5f, 0);
+
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         if (other.gameObject.CompareTag("Goal"))
         { 
             isTimeRunning = false;
             winTextObject.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
 
