@@ -27,21 +27,32 @@ public class PlayerController : MonoBehaviour
     private int count;
     float stopWatch;
 
+    bool isGoalReached;
+    public int pickupScore;
+    public int timeScore;
+    public int totalScore;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        pickupScore = 0;
+        timeScore = 1000;
+
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
         winTextObject.SetActive(false);
         isTimeRunning = true;
+        isGoalReached = false;
         stopWatch = 0;
         SetTimerText();
     }
 
     private void Update()
     {
+        ScoreTracker();
+        
         //This is a method of checking to see if the player is touching the ground.
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
@@ -59,8 +70,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump triggered");
             rb.AddForce(jump * rise);
         }
-
-        
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -100,6 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count += 1;
+            pickupScore += 15;
             SetCountText();
         }
 
@@ -145,6 +155,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             timerText.text = "Timer: " + minutes + ":0" + seconds;
+        }
+    }
+
+    void ScoreTracker()
+    {
+        if(isGoalReached == true)
+        {
+            totalScore = timeScore + pickupScore;
         }
     }
 }
