@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     private int yMax = 25;
     private int xMin = -30;
     private int yMin = -25;
+    private float turnSpeed = 30f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,8 @@ public class CameraController : MonoBehaviour
 
         turn.x += Input.GetAxis("Mouse X");
         turn.y += Input.GetAxis("Mouse Y");
+
+        //offset = turn.x * turnSpeed, Vector3.right) * offset;
 
         if (turn.y >= yMin)
         {
@@ -47,36 +50,6 @@ public class CameraController : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(-30, turn.x, 0);
             turn.y = yMax;
-        }
-
-        if (turn.x <= xMax)
-        {
-            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(-turn.y, -30, 0);
-            turn.x = xMax;
-        }
-
-        if (turn.x >= xMin)
-        {
-            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(-turn.y, -30, 0);
-            turn.x = xMin;
-        }
-
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-
         }
     }
 }
