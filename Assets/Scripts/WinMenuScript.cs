@@ -8,5 +8,6 @@ public class WinMenuScript : MonoBehaviour
     public void NextLevelOption()
     {
         SceneManager.LoadScene("TestLevel");
+        Time.timeScale = 1f;
     }
 }

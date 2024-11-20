@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI scoreText;
     public GameObject winTextObject;
     public Vector3 rise;
     public LayerMask groundLayer;
@@ -50,9 +51,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
-    {
-        ScoreTracker();
-        
+    {   
         //This is a method of checking to see if the player is touching the ground.
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
@@ -124,6 +123,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Goal"))
         { 
             isTimeRunning = false;
+            ScoreTracker();
             winTextObject.SetActive(true);
             Time.timeScale = 0f;
         }
@@ -160,9 +160,10 @@ public class PlayerController : MonoBehaviour
 
     void ScoreTracker()
     {
-        if(isGoalReached == true)
-        {
+            timeScore -= Mathf.FloorToInt(stopWatch * 15);
+            
             totalScore = timeScore + pickupScore;
-        }
+
+        scoreText.text = $"Score: {timeScore} + {pickupScore} = {totalScore}";
     }
 }
