@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 rise;
     public LayerMask groundLayer;
     public bool isTimeRunning;
+    public Camera playerCamera;
+
+    public Vector3 cameraForward;
 
     private float raycastDistance = 0.6f;
     private float jump = 50;
@@ -26,9 +29,8 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private bool isGrounded;
     private int count;
+    
     float stopWatch;
-
-    bool isGoalReached;
     public int pickupScore;
     public int timeScore;
     public int totalScore;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerCamera = Camera.main;
         pickupScore = 0;
         timeScore = 1000;
 
@@ -45,7 +48,6 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         winTextObject.SetActive(false);
         isTimeRunning = true;
-        isGoalReached = false;
         stopWatch = 0;
         SetTimerText();
     }

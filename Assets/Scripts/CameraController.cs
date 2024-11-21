@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
-    public Vector2 turn;
-    public Vector3 objectCamera;
-    public Vector3 newLeftPos;
-    public Vector3 newRightPos;
+    public GameObject playerGameObject;
+    public Transform orientation;
+    public Transform player;
+    public Transform playerObj;
+    public Rigidbody rb;
+
+    public float rotationSpeed;
 
     private Vector3 offset;
-    private int xMax = 30;
-    private int yMax = 25;
-    private int xMin = -30;
-    private int yMin = -25;
-    private float turnSpeed = 30f;
+
     // Start is called before the first frame update
     void Start()
     {
-        offset = transform.position - player.transform.position;    
+        offset = transform.position - playerGameObject.transform.position;
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -27,29 +28,19 @@ public class CameraController : MonoBehaviour
     {
         transform.position = player.transform.position + offset;
 
-        turn.x += Input.GetAxis("Mouse X");
-        turn.y += Input.GetAxis("Mouse Y");
+        // This rotates the orientation
+        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        orientation.forward = viewDir.normalized;
 
-        //offset = turn.x * turnSpeed, Vector3.right) * offset;
+        // This rotates the player object
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if (turn.y >= yMin)
+        // This makes it so if the input direction is not equal to zero, it turns the players forward to the direction of the inputDir with the rotation speed
+        if(inputDir != Vector3.zero)
         {
-            transform.localRotation = Quaternion.Euler(turn.y, turn.x, 0);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(-30, turn.x, 0);
-            turn.y = yMin;
-        }
-
-        if (turn.y <= yMax)
-        {
-            transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(-30, turn.x, 0);
-            turn.y = yMax;
+            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
     }
 }
