@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public bool isTimeRunning;
     public Camera playerCamera;
+    public float fanForce;
 
     public Vector3 cameraForward;
 
@@ -134,6 +135,28 @@ public class PlayerController : MonoBehaviour
             ScoreTracker();
             winTextObject.SetActive(true);
             Time.timeScale = 0f;
+        }
+
+        if (other.gameObject.CompareTag("FanCollider"))
+        {
+            Debug.Log("Player has entered trigger");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("FanCollider"))
+        {
+            Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+
+            rb.AddForce(-movement * fanForce);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("FanCollider"))
+        {
+            Debug.Log("Player has exit trigger");
         }
     }
 
