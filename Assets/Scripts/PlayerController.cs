@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         playerCamera = Camera.main;
         pickupScore = 0;
         timeScore = 1000;
@@ -123,7 +126,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("Goal"))
-        { 
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             isTimeRunning = false;
             ScoreTracker();
             winTextObject.SetActive(true);
