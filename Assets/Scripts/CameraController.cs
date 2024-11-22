@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private Vector3 offset;
 
     public float rotationSpeed;
-    private float mouseTurnX = Input.GetAxis("Horizontal");
+    //private float mouseTurnX = Input.GetAxis("Horizontal");
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         transform.position = player.transform.position + offset;
 
         //I want the camera to orbit around the player, and have it move when I move my camera left to right.
-        /*  When my camera turns
+        /*  Whenever my mouse moves 
          */
     }
 }
