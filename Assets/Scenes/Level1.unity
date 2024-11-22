@@ -480,6 +480,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   isTimeRunning: 0
   playerCamera: {fileID: 0}
+  fanForce: 0
   cameraForward: {x: 0, y: 0, z: 0}
   pickupScore: 0
   timeScore: 0
@@ -80210,6 +80211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 85313306}
+  rotationSpeed: 0
 --- !u!1 &967589790
 GameObject:
   m_ObjectHideFlags: 0
@@ -119715,7 +119717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v3.2
+  m_text: v3.04
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
