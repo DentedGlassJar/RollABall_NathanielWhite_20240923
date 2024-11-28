@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // Public Variables
+    public int pickupScore;
+    public int timeScore;
+    public int totalScore;
     public int pickUpMax;
     public float speed = 0;
     public TextMeshProUGUI countText;
@@ -21,8 +25,7 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     public float fanForce;
 
-    public Vector3 cameraForward;
-
+    // Private Variables
     private float raycastDistance = 0.6f;
     private float jump = 50;
     private Rigidbody rb;
@@ -30,12 +33,8 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private bool isGrounded;
     private int count;
-    
-    float stopWatch;
-    public int pickupScore;
-    public int timeScore;
-    public int totalScore;
-
+    private bool isFanOn;
+    private float stopWatch;
 
     // Start is called before the first frame update
     void Start()
@@ -140,6 +139,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("FanCollider"))
         {
             Debug.Log("Player has entered trigger");
+        }
+
+        if (other.gameObject.CompareTag("FanSwitch"))
+        {
+
         }
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Goal
   - FanCollider
+  - FanSwitch
   layers:
   - Default
   - TransparentFX

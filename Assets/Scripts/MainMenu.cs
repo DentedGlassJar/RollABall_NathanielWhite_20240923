@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public AudioSource welcomeToBallZoneClip;
+    private void Start()
+    {
+        welcomeToBallZoneClip.Play();       
+    }
+
     public void quitOption()
     {
         Application.Quit();
