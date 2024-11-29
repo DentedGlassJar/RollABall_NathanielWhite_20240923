@@ -16,7 +16,7 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayOption()
+    public void playOption()
     {
         SceneManager.LoadScene("Level1");       
     }
@@ -29,5 +29,10 @@ public class Menu : MonoBehaviour
     public void levelSelectOption()
     {
         SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void howToPlayButton()
+    {
+        SceneManager.LoadScene("HowToPlay");
     }
 }

@@ -14,37 +14,48 @@ public class PlayerController : MonoBehaviour
     public int timeScore;
     public int totalScore;
     public int pickUpMax;
+    public float fanForce;
     public float speed = 0;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
     public GameObject winTextObject;
+    public GameObject sRankImage;
+    public GameObject aRankImage;
+    public GameObject bRankImage;
+    public GameObject cRankImage;
     public Vector3 rise;
     public LayerMask groundLayer;
-    public bool isTimeRunning;
-    public Camera playerCamera;
-    public float fanForce;
+
+
 
     // Private Variables
+    private int count;
     private float raycastDistance = 0.6f;
     private float jump = 50;
-    private Rigidbody rb;
+    private float stopWatch;
     private float movementX;
     private float movementY;
     private bool isGrounded;
-    private int count;
     private bool isFanOn;
-    private float stopWatch;
+    private bool isTimeRunning;
+    private Rigidbody rb;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-        playerCamera = Camera.main;
+
         pickupScore = 0;
         timeScore = 1000;
+
+        sRankImage.SetActive(false);
+        aRankImage.SetActive(false);
+        bRankImage.SetActive(false);
+        cRankImage.SetActive(false);
 
         rb = GetComponent<Rigidbody>();
         count = 0;
@@ -134,6 +145,24 @@ public class PlayerController : MonoBehaviour
             ScoreTracker();
             winTextObject.SetActive(true);
             Time.timeScale = 0f;
+            
+            // The score needed to get the specific ranks from S to C. 
+            if(totalScore >= 800)
+            {
+                sRankImage.SetActive(true);
+            }
+            else if(totalScore <= 799 && totalScore >= 600)
+            {
+                aRankImage.SetActive(true);
+            }
+            else if(totalScore <= 599 && totalScore >= 400)
+            {
+                bRankImage.SetActive(true);
+            }
+            else if(totalScore <= 399 && totalScore >= 200)
+            {
+                cRankImage.SetActive(true);
+            }
         }
 
         if (other.gameObject.CompareTag("FanCollider"))
