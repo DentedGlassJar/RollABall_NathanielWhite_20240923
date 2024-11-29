@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public GameObject aRankImage;
     public GameObject bRankImage;
     public GameObject cRankImage;
+    public AudioSource pickUpSFX;
+    public AudioSource jumpSFX;
     public Vector3 rise;
     public LayerMask groundLayer;
 
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Debug.Log("Jump triggered");
+            jumpSFX.Play();
             rb.AddForce(jump * rise);
         }
 
@@ -123,6 +126,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
+            pickUpSFX.Play();
             count += 1;
             pickupScore += 15;
             SetCountText();
