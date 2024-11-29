@@ -1509,7 +1509,7 @@ GameObject:
   - component: {fileID: 852721880}
   - component: {fileID: 852721879}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: FanSwitch
   m_TagString: FanSwitch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1530,7 +1530,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1594,7 +1594,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852721878}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.03, y: 0, z: 7.5}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1775,8 +1775,7 @@ Transform:
   m_LocalPosition: {x: 9.874, y: 1, z: 11.5}
   m_LocalScale: {x: 0.25, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2108833376}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &891906798 stripped
@@ -2058,14 +2057,18 @@ MonoBehaviour:
   pickUpMax: 8
   fanForce: 50
   speed: 10
+  drag: 0
   countText: {fileID: 1437481551}
   timerText: {fileID: 1196803507}
   scoreText: {fileID: 1673923113}
+  fanObj: {fileID: 863589310}
+  fanColliderObj: {fileID: 2108833375}
   winTextObject: {fileID: 2000207680}
   sRankImage: {fileID: 2058206454}
   aRankImage: {fileID: 1915972664}
   bRankImage: {fileID: 561503491}
   cRankImage: {fileID: 862202990}
+  fanOffMaterial: {fileID: 2100000, guid: 738bdced6718a0640b5a7edbdcde5888, type: 2}
   pickUpSFX: {fileID: 1851359798}
   jumpSFX: {fileID: 1934075417}
   rise: {x: 0, y: 0, z: 0}
@@ -4923,12 +4926,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108833375}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.52, y: 0, z: 0}
-  m_LocalScale: {x: 22, y: 0.7, z: 0.7}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.9939995, y: 1, z: 11.5}
+  m_LocalScale: {x: 5.5, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 863589314}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2108833377
 BoxCollider:
@@ -5101,5 +5104,6 @@ SceneRoots:
   - {fileID: 528258619}
   - {fileID: 2071727266}
   - {fileID: 863589314}
+  - {fileID: 2108833376}
   - {fileID: 852721882}
   - {fileID: 41422165}

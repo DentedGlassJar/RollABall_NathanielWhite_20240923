@@ -477,11 +477,14 @@ MonoBehaviour:
   countText: {fileID: 394648177}
   timerText: {fileID: 618088449}
   scoreText: {fileID: 125107431}
+  fanObj: {fileID: 0}
+  fanColliderObj: {fileID: 0}
   winTextObject: {fileID: 1418316837}
   sRankImage: {fileID: 1320407141}
   aRankImage: {fileID: 1537379209}
   bRankImage: {fileID: 634520542}
   cRankImage: {fileID: 606067611}
+  fanOffMaterial: {fileID: 0}
   pickUpSFX: {fileID: 122316500}
   jumpSFX: {fileID: 239829240}
   rise: {x: 0, y: 0, z: 0}
@@ -80634,7 +80637,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: 0.20577359, y: -0, z: -0, w: 0.9785997}
-  m_LocalPosition: {x: 0, y: 2.25, z: -3.25}
+  m_LocalPosition: {x: 0, y: 2.35, z: -2.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -120498,7 +120501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v4.02
+  m_text: v4.03
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

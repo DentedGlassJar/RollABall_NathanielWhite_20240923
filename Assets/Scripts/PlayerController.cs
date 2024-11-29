@@ -15,15 +15,18 @@ public class PlayerController : MonoBehaviour
     public int totalScore;
     public int pickUpMax;
     public float fanForce;
-    public float speed = 0;
+    public float speed;
     public TextMeshProUGUI countText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
+    public GameObject fanObj;
+    public GameObject fanColliderObj;
     public GameObject winTextObject;
     public GameObject sRankImage;
     public GameObject aRankImage;
     public GameObject bRankImage;
     public GameObject cRankImage;
+    public Material fanOffMaterial;
     public AudioSource pickUpSFX;
     public AudioSource jumpSFX;
     public Vector3 rise;
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private bool isFanOn;
     private bool isTimeRunning;
     private Rigidbody rb;
+    private Vector3 drag = new Vector3(1, 0, 1);
 
 
 
@@ -88,10 +92,15 @@ public class PlayerController : MonoBehaviour
             jumpSFX.Play();
             rb.AddForce(jump * rise);
         }
+    }
+
+    private void FixedUpdate()
+    {
+            Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            if(isGrounded == true)
+            if (isGrounded == true)
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
@@ -106,12 +115,8 @@ public class PlayerController : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
-            Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-            rise = new Vector3(movementX, 10.0f, movementY);
+        rise = new Vector3(movementX, 10.0f, movementY);
             rb.AddForce(movement * speed);
 
         if(isTimeRunning == true)
@@ -176,7 +181,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("FanSwitch"))
         {
-
+            Debug.Log("Player has pressed the FanSwitch");
+            fanColliderObj.SetActive(false);
         }
     }
 
